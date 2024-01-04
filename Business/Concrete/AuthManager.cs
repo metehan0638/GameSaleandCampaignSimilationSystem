@@ -10,9 +10,27 @@ namespace GameProject.Business.Concrete
 {
     internal class AuthManager : IAuthService
     {
+        ValidationManager _validationManager;
+
+        public AuthManager(IUserValidationService userValidationService)
+        {
+            UserValidationService = userValidationService;
+        }
+
+       
+
+        public IUserValidationService UserValidationService { get; }
+
         public void Register(Person person)
         {
-            Console.WriteLine(person.FirstName + " " + person.LastName+ " " + "kullanıcısı sisteme kayıt oldu.");
+            if (UserValidationService.CheckUser(person))
+            {
+                Console.WriteLine(person.FirstName + " " + person.LastName + " " + "kullanıcısı sisteme kayıt oldu.");
+            }
+            else
+            {
+                Console.WriteLine("Mernis'de böyle bir kullanıcı yoktur.");
+            }
         }
 
         public void Unregister(Person person)

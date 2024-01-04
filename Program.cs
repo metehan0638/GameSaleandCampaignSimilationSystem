@@ -14,9 +14,11 @@ namespace GameProject // Note: actual namespace depends on the project name.
             Game game2 = new Game();
             Person user1 = new User();
             List<Game> games = new List<Game>() { game1, game2 };
-            IAuthService authUser = new AuthManager();
-            ISaleService saleGame = new SaleManager();
+            IUserValidationService userValidationService = new ValidationManager();
+            IAuthService authService = new AuthManager(userValidationService);
+            ISaleService saleGame = new SaleManager();  
             ICampaignService campaignService = new CampaignManager();
+            
 
             Campaign campaign1 = new Campaign();
             campaign1.CampaignId = 1;
@@ -31,14 +33,15 @@ namespace GameProject // Note: actual namespace depends on the project name.
             user1.Id = 1;
             user1.FirstName = "Metehan";
             user1.LastName = "Mete";
-            user1.IdentityNum = "12345"; 
+            user1.IdentityNum = "12345";
+            
+         
 
-           
-
-            authUser.Register(user1);
-            campaignService.CreateCampaign(campaign1);
-            saleGame.SaleGame(user1, games);
-
+            
+                authService.Register(user1);
+                campaignService.CreateCampaign(campaign1);
+                saleGame.SaleGame(user1, games);
+            
 
         }
     }

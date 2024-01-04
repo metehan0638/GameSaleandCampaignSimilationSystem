@@ -19,7 +19,7 @@ namespace GameProject.Business.Concrete
             {
                 return true;
             }
-            return false;
+           else { return false; }
         }
     }
 }
